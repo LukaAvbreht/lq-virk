@@ -14,3 +14,9 @@ git clone https://github.com/orest-d/lq-virk.git
 cd lq-virk
 pip3 install -r requirements.txt
 ```
+
+# Demo
+
+Demo proxy is installed on http://orest3d.pythonanywhere.com/liquer/q/
+
+Try e.g. [http://orest3d.pythonanywhere.com/liquer/q/ns-virk/register/register.html]
