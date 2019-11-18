@@ -4,6 +4,7 @@ from datetime import datetime
 import pytz
 import pandas as pd
 import traceback
+import pprint
 
 from liquer import *
 
@@ -247,9 +248,163 @@ if __name__ == "__main__":
     import liquer.ext.basic
     import liquer.ext.lq_pandas
     from liquer.cache import FileCache, set_cache
-    set_cache(FileCache("cache"))
 
-    register_df = register()
-    cvr = register_df.cvrNummer[0]
+    # TO save data you requested alread (save to cashe)
+    # set_cache(FileCache("cache"))
 
-    evaluate_and_save(f"ns-virk/cvrdf-{cvr}/data_{cvr}.csv")
+    # register_df = register()
+    #
+    # print(type(register_df))
+    #
+    # import pprint
+    #
+    # pprint.pprint(register_df.columns)
+    #
+    # print(register_df.shape)
+    #
+    # cvr2 = register_df.cvrNummer[0]
+    #
+    # cvr_nums = register_df["cvrNummer"].unique()
+    # print(len(register_df["cvrNummer"].unique()))
+    #
+    # print("CVR data")
+    # # cvr(int(register_df["cvrNummer"].unique()[0]))
+    # # print(cvr(int(register_df["cvrNummer"].unique()[0])))
+    #
+    # num = int(register_df["cvrNummer"].unique()[0])
+    #
+    # # with open("data_{0}.xml".format(num),"w") as out:
+    # #     pprint.pprint(tojson(cvr(num)))
+    # #     # out.write(tojson(cvr(num)))
+    #
+    # print("\n\n\n * " + "\n * ".join([i for i in cvrdf(num).columns]))
+    #
+    # with open("{0}.csv".format(num),"w") as inp:
+    #     cvrdf(num).to_csv(path_or_buf=inp,index=False)
+    #     print(num)
+    #
+    # params = list()
+    #
+    # for cvrnum in cvr_nums[:100]:
+    #     print(cvrnum)
+    #     print(cvrdf(cvrnum).shape)
+    #     params.append(set(cvrdf(cvrnum).columns))
+    #
+    # # for i in params[2]:
+    # #     val = list()
+    # #     for j in params:
+    # #         val.append(i in list(j))
+    # #     print(False in val)
+    # #     print(True in val)
+    # #     if False in val:
+    # #         pass
+    # #     else:
+    # #         print(i)
+    #
+    # u = set.intersection(*params)
+    #
+    # for i in u:
+    #     print(i)
+    #
+    # # print(register_df["regnskabsperiode_startDato"].unique())
+    # # print(register_df["regnskabsperiode_slutDato"].unique())
+    # #
+    # # print(register_df)
+    #
+    # evaluate_and_save(f"ns-virk/cvrdf-{cvr2}/data_{cvr2}.csv")
+
+
+    print("Last year")
+    YYYYMMDD = "20191020"
+
+    register_df = register(day=YYYYMMDD)
+
+    print(type(register_df))
+
+    pprint.pprint(register_df.columns)
+
+    print(register_df.shape)
+
+    cvr2 = register_df.cvrNummer[0]
+
+    cvr_nums = register_df["cvrNummer"].unique()
+    print(len(register_df["cvrNummer"].unique()))
+
+    print("CVR data")
+    # cvr(int(register_df["cvrNummer"].unique()[0]))
+    # print(cvr(int(register_df["cvrNummer"].unique()[0])))
+
+    num = int(register_df["cvrNummer"].unique()[0])
+
+    # with open("data_{0}.xml".format(num),"w") as out:
+    #     pprint.pprint(tojson(cvr(num)))
+    #     # out.write(tojson(cvr(num)))
+
+    print("\n\n\n * " + "\n * ".join([i for i in cvrdf(num,day=YYYYMMDD).columns]))
+
+    with open("{0}_{1}.csv".format(num,YYYYMMDD),"w") as inp:
+        cvrdf(num,day=YYYYMMDD).to_csv(path_or_buf=inp,index=False)
+        print(num)
+
+
+
+    YYYYMMDD = "20151020"
+    register_df = register(day=YYYYMMDD)
+
+    print(type(register_df))
+
+    pprint.pprint(register_df.columns)
+
+    print(register_df.shape)
+
+    cvr2 = register_df.cvrNummer[0]
+
+    cvr_nums = register_df["cvrNummer"].unique()
+    print(len(register_df["cvrNummer"].unique()))
+
+    print("CVR data")
+    # cvr(int(register_df["cvrNummer"].unique()[0]))
+    # print(cvr(int(register_df["cvrNummer"].unique()[0])))
+
+    num = int(register_df["cvrNummer"].unique()[0])
+
+    # with open("data_{0}.xml".format(num),"w") as out:
+    #     pprint.pprint(tojson(cvr(num)))
+    #     # out.write(tojson(cvr(num)))
+
+    print("\n\n\n * " + "\n * ".join([i for i in cvrdf(num,day=YYYYMMDD).columns]))
+
+    with open("{0}_{1}.csv".format(num,YYYYMMDD),"w") as inp:
+        cvrdf(num,day=YYYYMMDD).to_csv(path_or_buf=inp,index=False)
+        print(num)
+
+    # params = list()
+
+    # for cvrnum in cvr_nums[:100]:
+    #     contend = cvrdf(cvrnum, day=YYYYMMDD)
+    #     print(contend.shape)
+    #     print(cvrnum)
+    #     params.append(set(cvrdf(cvrnum).columns))
+
+    # for i in params[2]:
+    #     val = list()
+    #     for j in params:
+    #         val.append(i in list(j))
+    #     print(False in val)
+    #     print(True in val)
+    #     if False in val:
+    #         pass
+    #     else:
+    #         print(i)
+
+    # u = set.intersection(*params)
+    #
+    # for i in u:
+    #     print(i)
+
+    # print(register_df["regnskabsperiode_startDato"].unique())
+    # print(register_df["regnskabsperiode_slutDato"].unique())
+    #
+    # print(register_df)
+
+    # evaluate_and_save(f"ns-virk/cvrdf-{cvr2}/data_{cvr2}.csv")
