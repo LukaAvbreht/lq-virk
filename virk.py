@@ -407,4 +407,4 @@ if __name__ == "__main__":
     #
     # print(register_df)
 
-    # evaluate_and_save(f"ns-virk/cvrdf-{cvr2}/data_{cvr2}.csv")
+    evaluate_and_save(f"ns-virk/cvrdf-{cvr2}/data_{cvr2}.csv")
