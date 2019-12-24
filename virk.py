@@ -73,6 +73,7 @@ def offentliggoerelser_raw(day=None, size=2999):
 
     response = requests.post(SEARCH_URL, data=json.dumps(data),
                              headers=HEADERS_FOR_JSON)
+    json_thing = response.json()
     return response.json()
 
 
@@ -327,37 +328,7 @@ if __name__ == "__main__":
 
     cvr2 = register_df.cvrNummer[0]
 
-    cvr_nums = register_df["cvrNummer"].unique()
-    print(len(register_df["cvrNummer"].unique()))
-
-    print("CVR data")
-    # cvr(int(register_df["cvrNummer"].unique()[0]))
-    # print(cvr(int(register_df["cvrNummer"].unique()[0])))
-
-    num = int(register_df["cvrNummer"].unique()[0])
-
-    # with open("data_{0}.xml".format(num),"w") as out:
-    #     pprint.pprint(tojson(cvr(num)))
-    #     # out.write(tojson(cvr(num)))
-
-    print("\n\n\n * " + "\n * ".join([i for i in cvrdf(num,day=YYYYMMDD).columns]))
-
-    with open("{0}_{1}.csv".format(num,YYYYMMDD),"w") as inp:
-        cvrdf(num,day=YYYYMMDD).to_csv(path_or_buf=inp,index=False)
-        print(num)
-
-
-
-    YYYYMMDD = "20151020"
-    register_df = register(day=YYYYMMDD)
-
-    print(type(register_df))
-
-    pprint.pprint(register_df.columns)
-
-    print(register_df.shape)
-
-    cvr2 = register_df.cvrNummer[0]
+    ccvr = 36943610
 
     cvr_nums = register_df["cvrNummer"].unique()
     print(len(register_df["cvrNummer"].unique()))
@@ -366,45 +337,85 @@ if __name__ == "__main__":
     # cvr(int(register_df["cvrNummer"].unique()[0]))
     # print(cvr(int(register_df["cvrNummer"].unique()[0])))
 
-    num = int(register_df["cvrNummer"].unique()[0])
+    with open("day_{0}.csv".format(YYYYMMDD),"w") as inp:
+        register_df.to_csv(path_or_buf=inp,index=True)
 
-    # with open("data_{0}.xml".format(num),"w") as out:
-    #     pprint.pprint(tojson(cvr(num)))
-    #     # out.write(tojson(cvr(num)))
+    with open("{0}_{1}_now.csv".format(ccvr, YYYYMMDD), "w") as inp:
+        cvrdf(ccvr,day=YYYYMMDD).to_csv(path_or_buf=inp, index=False)
+        print(ccvr)
 
-    print("\n\n\n * " + "\n * ".join([i for i in cvrdf(num,day=YYYYMMDD).columns]))
+    # evaluate_and_save(f"ns-virk/cvrdf-{cvr2}/data_{cvr2}.csv")
 
-    with open("{0}_{1}.csv".format(num,YYYYMMDD),"w") as inp:
-        cvrdf(num,day=YYYYMMDD).to_csv(path_or_buf=inp,index=False)
-        print(num)
 
-    # params = list()
-
-    # for cvrnum in cvr_nums[:100]:
-    #     contend = cvrdf(cvrnum, day=YYYYMMDD)
-    #     print(contend.shape)
-    #     print(cvrnum)
-    #     params.append(set(cvrdf(cvrnum).columns))
-
-    # for i in params[2]:
-    #     val = list()
-    #     for j in params:
-    #         val.append(i in list(j))
-    #     print(False in val)
-    #     print(True in val)
-    #     if False in val:
-    #         pass
-    #     else:
-    #         print(i)
-
-    # u = set.intersection(*params)
     #
-    # for i in u:
-    #     print(i)
-
-    # print(register_df["regnskabsperiode_startDato"].unique())
-    # print(register_df["regnskabsperiode_slutDato"].unique())
+    # num = int(register_df["cvrNummer"].unique()[0])
     #
-    # print(register_df)
-
-    evaluate_and_save(f"ns-virk/cvrdf-{cvr2}/data_{cvr2}.csv")
+    # # with open("data_{0}.xml".format(num),"w") as out:
+    # #     pprint.pprint(tojson(cvr(num)))
+    # #     # out.write(tojson(cvr(num)))
+    #
+    # print("\n\n\n * " + "\n * ".join([i for i in cvrdf(num,day=YYYYMMDD).columns]))
+    #
+    #
+    #
+    #
+    #
+    # YYYYMMDD = "20151020"
+    # register_df = register(day=YYYYMMDD)
+    #
+    # print(type(register_df))
+    #
+    # pprint.pprint(register_df.columns)
+    #
+    # print(register_df.shape)
+    #
+    # cvr2 = register_df.cvrNummer[0]
+    #
+    # cvr_nums = register_df["cvrNummer"].unique()
+    # print(len(register_df["cvrNummer"].unique()))
+    #
+    # print("CVR data")
+    # # cvr(int(register_df["cvrNummer"].unique()[0]))
+    # # print(cvr(int(register_df["cvrNummer"].unique()[0])))
+    #
+    # num = int(register_df["cvrNummer"].unique()[0])
+    #
+    # # with open("data_{0}.xml".format(num),"w") as out:
+    # #     pprint.pprint(tojson(cvr(num)))
+    # #     # out.write(tojson(cvr(num)))
+    #
+    # print("\n\n\n * " + "\n * ".join([i for i in cvrdf(num,day=YYYYMMDD).columns]))
+    #
+    # with open("{0}_{1}.csv".format(num,YYYYMMDD),"w") as inp:
+    #     cvrdf(num,day=YYYYMMDD).to_csv(path_or_buf=inp,index=False)
+    #     print(num)
+    #
+    # # params = list()
+    #
+    # # for cvrnum in cvr_nums[:100]:
+    # #     contend = cvrdf(cvrnum, day=YYYYMMDD)
+    # #     print(contend.shape)
+    # #     print(cvrnum)
+    # #     params.append(set(cvrdf(cvrnum).columns))
+    #
+    # # for i in params[2]:
+    # #     val = list()
+    # #     for j in params:
+    # #         val.append(i in list(j))
+    # #     print(False in val)
+    # #     print(True in val)
+    # #     if False in val:
+    # #         pass
+    # #     else:
+    # #         print(i)
+    #
+    # # u = set.intersection(*params)
+    # #
+    # # for i in u:
+    # #     print(i)
+    #
+    # # print(register_df["regnskabsperiode_startDato"].unique())
+    # # print(register_df["regnskabsperiode_slutDato"].unique())
+    # #
+    # # print(register_df)
+    #
